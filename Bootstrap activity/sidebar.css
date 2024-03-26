@@ -1,0 +1,27 @@
+.left-sidebar{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 60px;
+  background-color: #211720; /* Adjust the alpha value to make it more or less transparent */
+  width: 200px;
+}
+
+.left-sidebar-content {
+  padding: 20px; /* Adjust padding as needed */
+  overflow-y: auto; /* Add vertical scroll functionality */
+  max-height: calc(100vh - 58px); /* Adjust max height to fit the sidebar's height */
+}
+
+.left-sidebar-content a {
+  display: block;
+  color: white;
+  font-size: 13px;
+  text-decoration: none;
+  margin-bottom: 5px; 
+}
+
+ a:hover {
+  color: white;
+  background-color: 	#ffffff; 
+}

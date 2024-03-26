@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .registration-form {
+            display: none;
+        }
+
+        .login-form {
+            display: none;
+        }
+
+        .bg-image {
+            background-image: url('whitebg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-image d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="card"  style="background-color: #0a1d3d;">
+                    <div class="card-body">
+                        <div class="w-100 overflow-hidden" id="loginPage">
+                            <h2 class="text-center text-white fw-bold mb-3">Login Page</h2>
+                            <div class="mb-3">
+                                <input class="form-control rounded-20 border border-gray-800" type="text" name="username" id="username" placeholder="Email or Username">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control rounded-20 border border-gray-800" type="password" name="password" id="password" placeholder="Password">
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary w-100 rounded-20 hover:bg-[#71dee3]" onclick="loginSuccess()">Log in</button>
+                            </div>
+                            <p class="text-white text-center">Or</p>
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-success w-100 rounded-20 hover:bg-[#87e86b]" onclick="showRegistrationForm()">Register</button>
+                            </div>
+                        </div>
+
+                        <div class="w-100 overflow-hidden registration-form" id="registrationPage" style="display: none;">
+                            <h2 class="text-center text-white fw-bold mb-3">Registration Page</h2>
+                            <div class="mb-3">
+                                <input class="form-control rounded-20 border border-gray-800" type="text" name="username" id="username_registration" placeholder="Email or Username">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control rounded-20 border border-gray-800" type="password" name="password" id="password_registration" placeholder="Password">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control rounded-20 border border-gray-800" type="password" name="password" id="confirmpassword" placeholder="Confirm Password">
+                            </div>
+                            <div class="mb-3 form-check d-flex justify-content-center">
+                                <input type="checkbox" class="form-check-input" id="termsCheckbox">
+                                <label class="form-check-label text-white" style="margin-left: 10px;" for="termsCheckbox">Accept Terms & Conditions</label>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <button class="btn btn-success w-100 rounded-20 hover:bg-[#87e86b]" onclick="registerSuccess()">Register</button>
+                            </div>
+                            <p class="text-white text-center fs-10">Already have an account?</p>
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary w-100 rounded-20 hover:bg-[#71dee3]" onclick="loginPage()">Log In</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="errorModal" class="modal fade" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage" class="text-danger"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script>
+        function showRegistrationForm() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('registrationPage').style.display = 'block';
+        }
+
+        function loginPage() {
+            document.getElementById('registrationPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'block';
+        }
+
+        function loginSuccess() {
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!email.includes('@')) {
+                showErrorModal('Invalid email address.');
+                return;
+            }
+
+            if (password.length === 0) {
+                showErrorModal('Please enter a password.');
+                return;
+            }
+
+            localStorage.setItem('email', email);
+
+            window.location.href = 'body.html';
+        }
+
+        function registerSuccess() {
+            const email = document.getElementById('username_registration').value;
+            const password = document.getElementById('password_registration').value;
+            const confirmPassword = document.getElementById('confirmpassword').value;
+            const termsCheckbox = document.getElementById('termsCheckbox');
+
+            if (!email.includes('@')) {
+                showErrorModal('Invalid email address.');
+                return;
+            }
+
+            if (password.length === 0) {
+                showErrorModal('Please enter a password.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showErrorModal('Passwords do not match.');
+                return;
+            }
+
+            if (!termsCheckbox.checked) {
+                showErrorModal('Please accept the Terms & Conditions.');
+                return;
+            }
+
+            localStorage.setItem('email', email);
+
+
+            window.location.href = 'body.html';
+        }
+
+        const errorModal = document.getElementById('errorModal');
+
+        function showErrorModal(errorMessage) {
+            const errorMessageElement = document.getElementById('errorMessage');
+            errorMessageElement.textContent = errorMessage;
+            const modal = new bootstrap.Modal(errorModal);
+            modal.show();
+        }
+    </script>
+</body>
+</html>

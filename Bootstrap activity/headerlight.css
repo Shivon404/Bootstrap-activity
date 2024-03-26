@@ -1,0 +1,42 @@
+.header {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color:rgb(162, 179, 199); /* Adjust the alpha value to make it more or less transparent */
+}
+
+.left-header{
+  width: 400px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+
+.right-header{
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 20px;
+}
+
+.profile-logo{
+  width: 35px;
+  height: 35px;
+  border-radius: 15px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.greetings{
+  color: rgb(0, 0, 0);
+  font-family: arial;
+  
+  font-size: 20px;
+}
